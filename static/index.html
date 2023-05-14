@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+  <title>cors-cache</title>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function append(k, isError = false) {
+      const p = document.createElement('p');
+      isError && p.classList.add('error');
+      p.innerText = `${k}加载${isError ? '失败' : '成功'}`;
+      document.body.append(p);
+    }
+
+    ['1.js', '2.js', '3.js'].forEach(it => {
+      fetch(`http://c.waiter.com:3000/api/${it}`).then(() => {
+        append(it);
+      }).catch(() => {
+        append(it, true);
+      })
+    });
+  </script>
+</body>
